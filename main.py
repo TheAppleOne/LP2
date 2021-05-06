@@ -1,13 +1,11 @@
+from pprint import pprint
+import googlemaps
 
-import plotly.express as px
-import geopandas as gpd
+API_KEY = ''
 
-geo_df = gpd.read_file(gpd.datasets.get_path('naturalearth_cities'))
+map_client = googlemaps.Client(API_KEY)
 
-px.set_mapbox_access_token(open("pk.eyJ1IjoidGhlYXBwbGVvbmUiLCJhIjoiY2tvYzBqYzljMWoybTJ2bXUzOW56Nm44YSJ9.g6ooCrImGr3EN337C8uY5Q").read())
-fig = px.scatter_mapbox(geo_df,
-                        lat=geo_df.geometry.y,
-                        lon=geo_df.geometry.x,
-                        hover_name="name",
-                        zoom=1)
-fig.show()
+landmark1 = 'Piata Arcul de Triumf, Bucuresti'
+response = map_client.geocode(landmark1)
+pprint(response)
+print(response[0]['geometry'])
